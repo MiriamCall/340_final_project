@@ -15,6 +15,16 @@ router.get("/product", async (req, res) => {
   res.render("product", { title: "Product Page" });
 });
 
+//login Page Route
+router.get("/login", async (req, res) => {
+  res.render("login", { title: "Login Page" });
+});
+
+//dashboard Page Route
+router.get("/dashboard", async (req, res) => {
+  res.render("dashboard", { title: "Dashboard Page" });
+});
+
 // Example Router
 router.use("/example", exampleRoute);
 
