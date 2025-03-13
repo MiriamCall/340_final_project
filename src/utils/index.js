@@ -51,16 +51,25 @@ const configureStaticPaths = (app) => {
  * @returns {string} The navigation menu.
  */
 const getNav = () => {
-  return "This feature is not implemented yet.";
+  return `
+        <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/product">Products</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+        </nav>
+    `;
 };
 
 // const getNav = async () => {
-//     const categories = await getCategories();
+//     const categories = await getProduct();
 //     let nav = "<nav><ul>";
-//     categories.forEach((row) => {
-//       const id = row.category_id;
-//       const name = row.category_name;
-//       nav += `<li><a href="/category/view/${id}">${name}</a></li>`;
+//     Product.forEach((row) => {
+//       const id = row.product_id;
+//       const name = row.product_name;
+//       nav += `<li><a href="/products/view/${id}">${name}</a></li>`;
 //     });
 
 //     if (user) {
@@ -68,7 +77,7 @@ const getNav = () => {
 //           <li><a href="/game/add">Add Game</a></li>
 //           <li><a href="/category/add">Add Category</a></li>
 //           <li><a href="/category/delete">Delete Category</a></li>
-//           <li><a href="/About">About Me</a></li>
+//           <li><a href="/product">About Me</a></li>
 //           <li><a href="/account/logout">Logout</a></li>
 //           </ul>
 //       </nav>`;
