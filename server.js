@@ -7,7 +7,7 @@ import fileUploads from "./src/middleware/file-uploads.js";
 import homeRoute from "./src/routes/index.js";
 import layouts from "./src/middleware/layouts.js";
 import path from "path";
-import { configureStaticPaths } from "./src/utils/index.js";
+import { configureStaticPaths, getNav } from "./src/utils/index.js";
 import { fileURLToPath } from "url";
 import { testDatabase } from "./src/models/index.js";
 
@@ -48,6 +48,20 @@ app.use(express.json());
 
 // Middleware to parse URL-encoded form data (like from a standard HTML form)
 app.use(express.urlencoded({ extended: true }));
+
+//middleware to make nav available to all views
+app.use((req, res, next) => {
+  const nav = getNav();
+  res.locals.nav = getNav();
+  console.log(nav);
+  next();
+});
+
+// Routes
+app.get("/", (req, res) => res.render("index"));
+app.get("/product", (req, res) => res.render("products"));
+app.get("/contact", (req, res) => res.render("contact"));
+app.get("/login", (req, res) => res.render("login"));
 
 /**
  * Routes

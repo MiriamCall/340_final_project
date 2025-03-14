@@ -63,33 +63,4 @@ const getNav = () => {
     `;
 };
 
-// const getNav = async () => {
-//     const categories = await getProduct();
-//     let nav = "<nav><ul>";
-//     Product.forEach((row) => {
-//       const id = row.product_id;
-//       const name = row.product_name;
-//       nav += `<li><a href="/products/view/${id}">${name}</a></li>`;
-//     });
-
-//     if (user) {
-//       nav += `
-//           <li><a href="/game/add">Add Game</a></li>
-//           <li><a href="/category/add">Add Category</a></li>
-//           <li><a href="/category/delete">Delete Category</a></li>
-//           <li><a href="/product">About Me</a></li>
-//           <li><a href="/account/logout">Logout</a></li>
-//           </ul>
-//       </nav>`;
-//       return nav;
-//     } else {
-//       nav += `
-//           <li><a href="/About">About Me</a></li>
-//           <li><a href="/account/login">Login</a></li>
-//           <li></li><a href="/account/register">Register</a></li>
-//           </ul>
-//       </nav>`;
-//       return nav;
-//     }
-
 export { configureStaticPaths, getNav };
