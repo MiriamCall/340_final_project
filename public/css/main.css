@@ -1,0 +1,47 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+/* General reset */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+/* Styling for the contact info box */
+.contact-box {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the list items */
+.contact-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-box li {
+  padding: 8px 0;
+  font-size: 16px;
+}
+
+/* Heading styling inside the box */
+.contact-box h2 {
+  margin-bottom: 12px;
+  color: #333;
+}
+
+/* Strong text styling */
+.contact-box strong {
+  color: #555;
+}
