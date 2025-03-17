@@ -25,6 +25,7 @@ router.get("/dashboard", async (req, res) => {
   res.render("dashboard", { title: "Dashboard Page" });
 });
 
+
 // Example Router
 router.use("/example", exampleRoute);
 
