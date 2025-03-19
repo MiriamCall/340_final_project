@@ -10,6 +10,7 @@ import path from "path";
 import { configureStaticPaths, getNav } from "./src/utils/index.js";
 import { fileURLToPath } from "url";
 import { testDatabase } from "./src/models/index.js";
+// import userRoutes from "./src/routes/userRoute.js";
 
 /**
  * Global Variables
@@ -49,20 +50,6 @@ app.use(express.json());
 // Middleware to parse URL-encoded form data (like from a standard HTML form)
 app.use(express.urlencoded({ extended: true }));
 
-//middleware to make nav available to all views
-app.use((req, res, next) => {
-  const nav = getNav();
-  res.locals.nav = getNav();
-  console.log(nav);
-  next();
-});
-
-// Routes
-app.get("/", (req, res) => res.render("index"));
-app.get("/product", (req, res) => res.render("products"));
-app.get("/contact", (req, res) => res.render("contact"));
-app.get("/login", (req, res) => res.render("login"));
-
 /**
  * Routes
  */
@@ -73,6 +60,16 @@ app.use("/", homeRoute);
 /**
  * Start the server
  */
+
+// Get all products
+// app.get("/products", async (req, res) => {
+//   try {
+//     const result = await pool.query("SELECT * FROM products");
+//     res.json(result.rows);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
 // When in development mode, start a WebSocket server for live reloading
 if (mode.includes("dev")) {

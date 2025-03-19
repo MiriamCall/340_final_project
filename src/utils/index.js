@@ -58,6 +58,7 @@ const getNav = () => {
             <li><a href="/product">Products</a></li>
             <li><a href="/contact">Contact</a></li>
             <li><a href="/login">Login</a></li>
+            <li><a href="/apparel">Apparel</a></li>
         </ul>
         </nav>
     `;

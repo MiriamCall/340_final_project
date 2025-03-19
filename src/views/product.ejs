@@ -1,4 +1,16 @@
-<h1>Product/Apparel</h1>
+<h1>Product Page</h1>
+
+<ul>
+  <% products.forEach(product => { %>
+  <li>
+    <a href="/products/<%= product.id %>"
+      ><%= product.name %> - $<%= product.price %></a
+    >
+  </li>
+  <% }); %>
+</ul>
+
+<!-- <h1>Product/Apparel</h1>
 
 <h1>Add a New Dress</h1>
 <form id="dressForm">
@@ -74,4 +86,4 @@
 
   // Initially load all dresses
   loadDresses();
-</script>
+</script> -->

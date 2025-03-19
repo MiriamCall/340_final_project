@@ -1,5 +1,6 @@
 import { Router } from "express";
-import exampleRoute from "./exampleRoute.js";
+import productRoute from "./productRoute.js";
+import userRoute from "./userRoute.js";
 
 const router = Router();
 
@@ -10,23 +11,29 @@ router.get("/", async (req, res) => {
   res.render("index", { title: "Home Page" });
 });
 
-//Product Page Route
-router.get("/product", async (req, res) => {
-  res.render("product", { title: "Product Page" });
-});
+// Product Page Route
+router.use("/product", productRoute);
 
-//login Page Route
-router.get("/login", async (req, res) => {
-  res.render("login", { title: "Login Page" });
-});
+// User Page Route
+router.use("/user", userRoute);
 
-//dashboard Page Route
-router.get("/dashboard", async (req, res) => {
-  res.render("dashboard", { title: "Dashboard Page" });
-});
+// login Page Route
 
+// dashboard Page Route
 
-// Example Router
-router.use("/example", exampleRoute);
+// //Apparel Page Route
+// router.get("/apparel", async (req, res) => {
+//   res.render("apparel", { title: "Apparel Page" });
+// });
+
+// //login Page Route
+// router.get("/login", async (req, res) => {
+//   res.render("login", { title: "Login Page" });
+// });
+
+// //dashboard Page Route
+// router.get("/dashboard", async (req, res) => {
+//   res.render("dashboard", { title: "Dashboard Page" });
+// });
 
 export default router;
