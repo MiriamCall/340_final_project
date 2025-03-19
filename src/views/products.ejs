@@ -1,25 +1,27 @@
-<section class="product-list-section">
-  <h1>Product Page</h1>
+<div class="product-list-page">
+  <section class="product-list-section">
+    <h1>Product Page</h1>
 
-  <div class="product-grid">
-    <% products.forEach(product => { %>
-    <div class="product-card">
-      <a href="/products/<%= product.id %>">
-        <h2 class="product-name"><%= product.name %></h2>
-        <img
-          src="<%= product.image_url %>"
-          alt="<%= product.name %>"
-          class="product-image"
-        />
-        <p class="product-description"><%= product.description %></p>
-        <p class="product-price">Price: $<%= product.price %></p>
-      </a>
+    <div class="product-grid">
+      <% products.forEach(product => { %>
+      <div class="product-card">
+        <a href="/products/<%= product.id %>">
+          <h2 class="product-name"><%= product.name %></h2>
+          <img
+            src="<%= product.image_url %>"
+            alt="<%= product.name %>"
+            class="product-image"
+          />
+          <p class="product-description"><%= product.description %></p>
+          <p class="product-price">Price: $<%= product.price %></p>
+        </a>
+      </div>
+      <% }); %>
     </div>
-    <% }); %>
-  </div>
-</section>
+  </section>
+</div>
 
-<style>
+<!-- <style>
   .product-list-section {
     font-family: "Arial", sans-serif;
     padding: 20px;
@@ -81,4 +83,4 @@
     color: inherit;
     display: block;
   }
-</style>
+</style> -->

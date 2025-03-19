@@ -1,24 +1,28 @@
-<section class="product-detail-section">
-  <div class="product-detail-layout">
-    <div class="product-image-container">
-      <img
-        src="<%= product.image_url %>"
-        alt="<%= product.name %>"
-        class="product-image"
-      />
+<div class="product-detail-page">
+  <section class="product-detail-section">
+    <div class="product-detail-layout">
+      <div class="product-image-container">
+        <img
+          src="<%= product.image_url %>"
+          alt="<%= product.name %>"
+          class="product-image"
+        />
+      </div>
+      <div class="product-info">
+        <h1><%= product.name %></h1>
+        <p class="product-description">
+          <strong>Description:</strong> <%= product.description %>
+        </p>
+        <p class="product-price">
+          <strong>Price:</strong> $<%= product.price %>
+        </p>
+        <a href="/products" class="back-button">Back to Products</a>
+      </div>
     </div>
-    <div class="product-info">
-      <h1><%= product.name %></h1>
-      <p class="product-description">
-        <strong>Description:</strong> <%= product.description %>
-      </p>
-      <p class="product-price"><strong>Price:</strong> $<%= product.price %></p>
-      <a href="/products" class="back-button">Back to Products</a>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
 
-<style>
+<!-- <style>
   .product-detail-section {
     font-family: "Arial", sans-serif;
     padding: 40px;
@@ -82,4 +86,4 @@
     border-radius: 5px;
     font-weight: bold;
   }
-</style>
+</style> -->
