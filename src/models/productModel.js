@@ -11,4 +11,20 @@ const getAllProducts = async () => {
   return await dbClient.query(query);
 };
 
-export { getProductById, getAllProducts };
+const addNewProduct = async (productData) => {
+  const query = `
+    INSERT INTO products (name, description, price, image_url)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *
+  `;
+  const values = [
+    productData.name,
+    productData.description,
+    productData.price,
+    productData.image_url,
+  ];
+
+  return await dbClient.query(query, values);
+};
+
+export { getProductById, getAllProducts, addNewProduct };
