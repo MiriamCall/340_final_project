@@ -1,11 +1,84 @@
-<h1>Product Page</h1>
+<section class="product-list-section">
+  <h1>Product Page</h1>
 
-<ul>
-  <% products.forEach(product => { %>
-  <li>
-    <a href="/products/<%= product.id %>"
-      ><%= product.name %> - $<%= product.price %></a
-    >
-  </li>
-  <% }); %>
-</ul>
+  <div class="product-grid">
+    <% products.forEach(product => { %>
+    <div class="product-card">
+      <a href="/products/<%= product.id %>">
+        <h2 class="product-name"><%= product.name %></h2>
+        <img
+          src="<%= product.image_url %>"
+          alt="<%= product.name %>"
+          class="product-image"
+        />
+        <p class="product-description"><%= product.description %></p>
+        <p class="product-price">Price: $<%= product.price %></p>
+      </a>
+    </div>
+    <% }); %>
+  </div>
+</section>
+
+<style>
+  .product-list-section {
+    font-family: "Arial", sans-serif;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+  }
+
+  .product-list-section h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .product-card {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .product-name {
+    font-size: 1.5em;
+    color: #333;
+  }
+
+  .product-image {
+    width: 100%; /* Make the image fill its container */
+    height: 300px; /* Set a fixed height */
+    object-fit: cover; /* Maintain aspect ratio and crop if necessary */
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .product-description {
+    color: #555;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  .product-price {
+    color: #007bff;
+    font-weight: bold;
+  }
+
+  .product-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+</style>
