@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
 });
 
 // Product Page Route
-router.use("/product", productRoute);
+router.use("/products", productRoute);
 
 // User Page Route
 router.use("/user", userRoute);

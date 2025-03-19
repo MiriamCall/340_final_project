@@ -5,7 +5,7 @@ const renderProductPage = async (req, res) => {
     const result = await getAllProducts();
     const products = result.rows;
 
-    res.render("product", { title: "Product Page", products });
+    res.render("productOverview", { title: "Product Page", products });
   } catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).send("Internal Server Error");
