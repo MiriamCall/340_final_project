@@ -50,18 +50,5 @@ const configureStaticPaths = (app) => {
  *
  * @returns {string} The navigation menu.
  */
-const getNav = () => {
-  return `
-        <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/product">Products</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/apparel">Apparel</a></li>
-        </ul>
-        </nav>
-    `;
-};
 
-export { configureStaticPaths, getNav };
+export { configureStaticPaths };

@@ -7,7 +7,7 @@ import fileUploads from "./src/middleware/file-uploads.js";
 import homeRoute from "./src/routes/index.js";
 import layouts from "./src/middleware/layouts.js";
 import path from "path";
-import { configureStaticPaths, getNav } from "./src/utils/index.js";
+import { configureStaticPaths } from "./src/utils/index.js";
 import { fileURLToPath } from "url";
 import { testDatabase } from "./src/models/index.js";
 // import userRoutes from "./src/routes/userRoute.js";
