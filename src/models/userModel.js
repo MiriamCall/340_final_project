@@ -1,54 +1,22 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../db");
-const role = require("./role"); // Import the role model to create the foreign key
+import pkg from "pg";
+const { Pool } = pkg;
 
-const user = sequelize.define("user", {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  },
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true,
-    },
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
-  },
-  role_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: role,
-      key: "id",
-    },
-  },
+// Create a new PostgreSQL connection pool
+const pool = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 
-//set up the association with the role model
-user.belongsTo(role, { foreignKey: "role_id", as: "role" });
+// Find a user by their email address
+export const findUserByEmail = async (email) => {
+  const result = await pool.query("SELECT * FROM users WHERE email = $1", [
+    email,
+  ]);
+  return result.rows[0]; // Return the user object or undefined if not found
+};
 
-//ensure the table exists in the database
-user
-  .sync()
-  .then(() => console.log("User table created successfully"))
-  .catch((err) =>
-    console.log("Error, did you enter wrong database credentials?")
-  );
-
-module.exports = user;
+// Export the pool if needed elsewhere
+export { pool };

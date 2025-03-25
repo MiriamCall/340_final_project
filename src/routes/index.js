@@ -1,6 +1,6 @@
 import { Router } from "express";
 import productRoute from "./productRoute.js";
-import userRoute from "./userRoute.js";
+import authRoutes from "./authRoutes.js";
 
 const router = Router();
 
@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 router.use("/products", productRoute);
 
 // User Page Route
-router.use("/user", userRoute);
+router.use("/user", authRoutes);
 
 // login Page Route
 
