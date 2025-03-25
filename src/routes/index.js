@@ -18,7 +18,7 @@ router.use("/products", productRoute);
 router.use("/user", authRoutes);
 
 // login Page Route
-
+router.use("/login", authRoutes);
 // dashboard Page Route
 
 // //Apparel Page Route

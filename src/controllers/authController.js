@@ -3,7 +3,7 @@ import { findUserByEmail } from "../models/userModel.js";
 
 // Render the login page
 export const loginPage = (req, res) => {
-  res.render("login");
+  res.render("login", { title: "Login Page" });
 };
 
 // Handle user login
