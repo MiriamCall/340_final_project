@@ -10,7 +10,7 @@ import path from "path";
 import { configureStaticPaths } from "./src/utils/index.js";
 import { fileURLToPath } from "url";
 import { testDatabase } from "./src/models/index.js";
-import authRoutes from "./src/routes/authRoutes.js"; // ✅ Importing login routes
+import authRoutes from "./src/routes/loginRoute.js"; // ✅ Importing login routes
 import dotenv from "dotenv";
 import session from "express-session";
 import cookieParser from "cookie-parser";
@@ -58,9 +58,6 @@ app.use(layouts);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-
-// Register login/auth routes
-app.use(authRoutes);
 
 // Middleware to process multipart form data with file uploads
 app.use(fileUploads);

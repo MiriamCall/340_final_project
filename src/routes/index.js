@@ -1,10 +1,11 @@
 import { Router } from "express";
 import productRoute from "./productRoute.js";
-import authRoutes from "./authRoutes.js";
+import signupRoute from "./signupRoute.js";
+import loginRoute from "./loginRoute.js";
+import logoutRoute from "./logoutRoute.js";
+import dashboardRoute from "./dashboardRoute.js";
 
 const router = Router();
-
-// ^^^ CREATE NEW ROUTES AND LINK TO NEW ROUTE FILES HERE
 
 // The home page route
 router.get("/", async (req, res) => {
@@ -14,26 +15,16 @@ router.get("/", async (req, res) => {
 // Product Page Route
 router.use("/products", productRoute);
 
-// User Page Route
-router.use("/user", authRoutes);
+// signup Routes
+router.use("/signup", signupRoute);
 
-// login Page Route
-router.use("/login", authRoutes);
-// dashboard Page Route
+// login Routes
+router.use("/login", loginRoute);
 
-// //Apparel Page Route
-// router.get("/apparel", async (req, res) => {
-//   res.render("apparel", { title: "Apparel Page" });
-// });
+// Logout Routes
+router.use("/logout", logoutRoute);
 
-// //login Page Route
-// router.get("/login", async (req, res) => {
-//   res.render("login", { title: "Login Page" });
-// });
-
-// //dashboard Page Route
-// router.get("/dashboard", async (req, res) => {
-//   res.render("dashboard", { title: "Dashboard Page" });
-// });
+// Dashboard Routes
+router.use("/dashboard", dashboardRoute);
 
 export default router;
