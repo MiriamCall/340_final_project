@@ -1,36 +1,56 @@
-// Render the login page
+import { findUserByUsername } from "../models/userModel.js"; // Adjust path if needed
+import bcrypt from "bcrypt";
+
 export const renderLoginPage = (req, res) => {
   res.render("login", {
     title: "Login",
+    errors: {},
     user: req.session.userId ? { id: req.session.userId } : null,
   });
 };
 
-// Handle user login
-export const loginUser = async (req, res) => {
-  // const { email, password } = req.body;
-  // try {
-  //   const user = await findUserByEmail(email);
-  //   if (!user) {
-  //     return res.status(400).send("Invalid email or password");
-  //   }
-  //   const isMatch = await bcrypt.compare(password, user.password);
-  //   if (!isMatch) {
-  //     return res.status(400).send("Invalid email or password");
-  //   }
-  //   // Store user information in the session
-  //   req.session.userId = user.id;
-  //   req.session.email = user.email;
-  //   res.redirect("/dashboard");
-  // } catch (error) {
-  //   console.error("Login error:", error);
-  //   res.status(500).send("Internal Server Error");
-  // }
-};
+export const handleLogin = async (req, res) => {
+  const { username, password } = req.body;
+  const errors = {};
 
-// Handle user logout
-// export const logoutUser = (req, res) => {
-//   req.session.destroy(() => {
-//     res.redirect("/login");
-//   });
-// };
+  if (!username) errors.username = "Username is required";
+  if (!password) errors.password = "Password is required";
+
+  if (Object.keys(errors).length > 0) {
+    return res.render("login", {
+      title: "Login",
+      errors,
+      user: req.session.userId ? { id: req.session.userId } : null,
+    });
+  }
+
+  try {
+    const user = await findUserByUsername(username);
+
+    if (!user) {
+      errors.login = "Invalid username or password";
+      return res.render("login", {
+        title: "Login",
+        errors,
+        user: req.session.userId ? { id: req.session.userId } : null,
+      });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      errors.login = "Invalid username or password";
+      return res.render("login", {
+        title: "Login",
+        errors,
+        user: req.session.userId ? { id: req.session.userId } : null,
+      });
+    }
+
+    req.session.userId = user.id;
+    res.redirect("/dashboard");
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).send("Login failed");
+  }
+};

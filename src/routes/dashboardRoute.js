@@ -1,11 +1,8 @@
-import express from "express";
-import { renderLoginPage, loginUser } from "../controllers/loginController.js";
-import { ensureAuthenticated } from "../middleware/authMiddleware.js";
+import { Router } from "express";
+import { renderDashboard } from "../controllers/dashboardController.js";
 
-const router = express.Router();
+const router = Router();
 
-// Login page
-router.get("/", renderLoginPage);
-router.post("/", loginUser);
+router.get("/", renderDashboard);
 
 export default router;
