@@ -11,7 +11,11 @@ const renderProductPage = async (req, res) => {
     const result = await getAllProducts();
     const products = result.rows;
 
-    res.render("products", { title: "Product Page", products });
+    res.render("products", {
+      title: "Product Page",
+      products,
+      user: req.session.userId ? { id: req.session.userId } : null,
+    });
   } catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).send("Internal Server Error");
@@ -30,6 +34,7 @@ const renderProductDetail = async (req, res) => {
     res.render("productDetail", {
       title: "Product Details",
       product: result.rows[0],
+      user: req.session.userId ? { id: req.session.userId } : null,
     });
   } catch (error) {
     console.error("Error fetching product details:", error);
@@ -38,7 +43,10 @@ const renderProductDetail = async (req, res) => {
 };
 
 const renderAddProductForm = (req, res) => {
-  res.render("addProduct", { title: "Add Product" });
+  res.render("addProduct", {
+    title: "Add Product",
+    user: req.session.userId ? { id: req.session.userId } : null,
+  });
 };
 
 const addProductHandler = async (req, res) => {
@@ -76,6 +84,7 @@ const renderEditProductForm = async (req, res) => {
     res.render("editProduct", {
       title: "Edit Product",
       product: result.rows[0],
+      user: req.session.userId ? { id: req.session.userId } : null,
     });
   } catch (error) {
     console.error("Error fetching product for edit:", error);

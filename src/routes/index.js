@@ -9,7 +9,10 @@ const router = Router();
 
 // The home page route
 router.get("/", async (req, res) => {
-  res.render("index", { title: "Home Page" });
+  res.render("index", {
+    title: "Home Page",
+    user: req.session.userId ? { id: req.session.userId } : null,
+  });
 });
 
 // Product Page Route

@@ -1,6 +1,9 @@
 // Render the login page
 export const renderLoginPage = (req, res) => {
-  res.render("login", { title: "Login" });
+  res.render("login", {
+    title: "Login",
+    user: req.session.userId ? { id: req.session.userId } : null,
+  });
 };
 
 // Handle user login
