@@ -1,5 +1,5 @@
 import { findUserById, getUserRole } from "../models/userModel.js";
-import { findServiceRequestsByUserId } from "../models/servicerequestModel.js";
+import { findServiceRequestsByUserId } from "../models/serviceRequestModel.js";
 import { getAllProducts } from "../models/productModel.js";
 import { getAllServices } from "../models/serviceModel.js";
 
