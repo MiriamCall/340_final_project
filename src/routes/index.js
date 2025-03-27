@@ -4,6 +4,7 @@ import signUpRoute from "./signUpRoute.js";
 import loginRoute from "./loginRoute.js";
 import logoutRoute from "./logoutRoute.js";
 import dashboardRoute from "./dashboardRoute.js";
+import serviceRequestRoute from "./serviceRequestRoute.js";
 
 const router = Router();
 
@@ -29,5 +30,8 @@ router.use("/logout", logoutRoute);
 
 // Dashboard Routes
 router.use("/dashboard", dashboardRoute);
+
+// Service Request Routes
+router.use("/service-request", serviceRequestRoute);
 
 export default router;

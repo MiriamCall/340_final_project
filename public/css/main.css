@@ -462,3 +462,159 @@ SIGNUP PAGE STYLES
 .signup-section .signup-error-item {
   padding: 5px 0;
 }
+
+/* Dashboard Specific Styles */
+
+.product-selection {
+  margin-bottom: 20px;
+}
+
+.product-selection-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.product-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.product-card {
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.product-details {
+  text-align: center;
+}
+
+.product-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.product-id {
+  font-size: 0.8em;
+  color: #888;
+}
+
+.product-no-available {
+  color: #888;
+  font-style: italic;
+}
+
+.product-card.selected {
+  border: 2px solid blue; /* Or any other visual indicator */
+}
+
+/* Dashboard Content */
+.dashboard-content {
+  padding: 20px;
+}
+
+.dashboard-content h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.client-dashboard .card,
+.technician-dashboard .card,
+.admin-dashboard .card {
+  margin-bottom: 20px;
+}
+
+.client-dashboard .card-title,
+.technician-dashboard .card-title,
+.admin-dashboard .card-title {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.client-dashboard .list-group-item,
+.technician-dashboard .list-group-item {
+  margin-bottom: 10px;
+}
+
+/* Service Request Form */
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.form-check {
+  margin-bottom: 5px;
+}
+
+.btn-primary {
+  background-color: var(--button-color);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: var(--button-color);
+}
+
+.btn-sm.btn-outline-secondary {
+  padding: 5px 10px;
+  border: 1px solid #6c757d;
+  border-radius: 4px;
+  color: #6c757d;
+  background-color: transparent;
+}
+
+.btn-sm.btn-outline-secondary:hover {
+  background-color: #e2e6ea;
+}
+
+.alert-danger {
+  background-color: var(--error-background);
+  color: var(--error-color);
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+/*Admin Dashboard*/
+.admin-dashboard .card-title {
+  text-align: center;
+}
+
+.admin-dashboard .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.admin-dashboard .col-md-6 {
+  flex: 1 1 45%;
+}
