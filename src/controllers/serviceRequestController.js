@@ -30,6 +30,8 @@ export const getServiceRequestById = async (req, res) => {
 
 export const createServiceRequest = async (req, res) => {
   try {
+    //Add the user id to the request body.
+    req.body.user_id = req.session.userId;
     const serviceRequest = await createServiceRequestModel(req.body);
     res.status(201).json(serviceRequest);
   } catch (error) {

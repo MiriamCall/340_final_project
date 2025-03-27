@@ -2,9 +2,9 @@ import dbClient from "./index.js";
 
 export const findServiceRequests = async () => {
   const query = `
-    SELECT *
-    FROM service_requests;
-  `;
+        SELECT *
+        FROM service_requests;
+    `;
 
   try {
     const result = await dbClient.query(query);
@@ -17,10 +17,10 @@ export const findServiceRequests = async () => {
 
 export const findServiceRequestsByUserId = async (userId) => {
   const query = `
-    SELECT *
-    FROM service_requests
-    WHERE user_id = $1;
-  `;
+        SELECT *
+        FROM service_requests
+        WHERE user_id = $1;
+    `;
   const values = [userId];
 
   try {
@@ -34,10 +34,10 @@ export const findServiceRequestsByUserId = async (userId) => {
 
 export const findServiceRequestById = async (requestId) => {
   const query = `
-    SELECT *
-    FROM service_requests
-    WHERE id = $1;
-  `;
+        SELECT *
+        FROM service_requests
+        WHERE id = $1;
+    `;
   const values = [requestId];
 
   try {
@@ -50,13 +50,14 @@ export const findServiceRequestById = async (requestId) => {
 };
 
 export const createServiceRequest = async (requestData) => {
-  const { user_id, product_name, services, date, status } = requestData;
+  const { user_id, product_id, description, status_id, technician_id } =
+    requestData;
   const query = `
-    INSERT INTO service_requests (user_id, product_name, services, date, status)
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING *;
-  `;
-  const values = [user_id, product_name, services, date, status];
+        INSERT INTO service_requests (user_id, product_id, description, status_id, technician_id, created_at, updated_at)
+        VALUES ($1, $2, $3, $4, $5, NOW(), NOW())
+        RETURNING *;
+    `;
+  const values = [user_id, product_id, description, status_id, technician_id];
 
   try {
     const result = await dbClient.query(query, values);
@@ -68,14 +69,14 @@ export const createServiceRequest = async (requestData) => {
 };
 
 export const updateServiceRequest = async (requestId, requestData) => {
-  const { product_name, services, date, status } = requestData;
+  const { product_id, description, status_id, technician_id } = requestData;
   const query = `
-    UPDATE service_requests
-    SET product_name = $1, services = $2, date = $3, status = $4
-    WHERE id = $5
-    RETURNING *;
-  `;
-  const values = [product_name, services, date, status, requestId];
+        UPDATE service_requests
+        SET product_id = $1, description = $2, status_id = $3, technician_id = $4, updated_at = NOW()
+        WHERE id = $5
+        RETURNING *;
+    `;
+  const values = [product_id, description, status_id, technician_id, requestId];
 
   try {
     const result = await dbClient.query(query, values);
@@ -88,9 +89,9 @@ export const updateServiceRequest = async (requestId, requestData) => {
 
 export const deleteServiceRequest = async (requestId) => {
   const query = `
-    DELETE FROM service_requests
-    WHERE id = $1;
-  `;
+        DELETE FROM service_requests
+        WHERE id = $1;
+    `;
   const values = [requestId];
 
   try {
