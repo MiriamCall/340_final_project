@@ -1,2 +1,148 @@
-<h1>Welcome to your Dashboard</h1>
-<p>This is your dashboard, dynamically rendered using the layout.</p>
+<section class="dashboard-content">
+  <h1 class="text-center mb-4">Dashboard</h1>
+  <% if (user.roleId === 3) { %>
+  <div class="client-dashboard">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="card-title">Service Request Form</h2>
+        <a href="/service-request/new" class="btn btn-primary"
+          >Create New Service Request</a
+        >
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Your Service Requests</h2>
+        <% if (serviceRequests && serviceRequests.length > 0) { %>
+        <ul class="list-group">
+          <% serviceRequests.forEach(request => { %>
+          <li class="list-group-item">
+            <strong>Request ID:</strong> <%= request.id %> <br />
+            <strong>Product:</strong> <%= request.productName %> <br />
+            <strong>Services:</strong>
+            <% if (request.services && request.services.length > 0) { %> <%=
+            request.services.join(', ') %> <% } else { %> None <% } %>
+            <br />
+            <strong>Date:</strong> <%= request.date %> <br />
+            <strong>Status:</strong> <%= request.status %> <br />
+            <a
+              href="/service-request/<%= request.id %>"
+              class="btn btn-sm btn-outline-secondary mt-2"
+              >View Details</a
+            >
+          </li>
+          <% }); %>
+        </ul>
+        <% } else { %>
+        <p class="text-muted">No service requests found.</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <% } else if (user.roleId === 2) { %>
+  <div class="technician-dashboard">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="card-title">Your Assigned Tasks</h2>
+        <% if (tasks && tasks.length > 0) { %>
+        <ul class="list-group">
+          <% tasks.forEach(task => { %>
+          <li class="list-group-item">
+            <strong>Task ID:</strong> <%= task.id %> <br />
+            <strong>Product:</strong> <%= task.productName %> <br />
+            <strong>Services:</strong>
+            <% if (task.services && task.services.length > 0) { %> <%=
+            task.services.join(', ') %> <% } else { %> None <% } %>
+            <br />
+            <strong>Description:</strong> <%= task.description %> <br />
+            <strong>Status:</strong> <%= task.status %> <br />
+            <strong>Due Date:</strong> <%= task.dueDate %>
+            <a
+              href="/technician/task/<%= task.id %>"
+              class="btn btn-sm btn-outline-secondary mt-2"
+              >View Details</a
+            >
+          </li>
+          <% }); %>
+        </ul>
+        <% } else { %>
+        <p class="text-muted">No tasks assigned to you.</p>
+        <% } %>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Ticket Queue</h2>
+        <% if (tickets && tickets.length > 0) { %>
+        <ul class="list-group">
+          <% tickets.forEach(ticket => { %>
+          <li class="list-group-item">
+            <strong>Ticket ID:</strong> <%= ticket.id %> <br />
+            <strong>Subject:</strong> <%= ticket.subject %> <br />
+            <strong>Product:</strong> <%= ticket.productName %> <br />
+            <strong>Services:</strong>
+            <% if (ticket.services && ticket.services.length > 0) { %> <%=
+            ticket.services.join(', ') %> <% } else { %> None <% } %>
+            <br />
+            <strong>Status:</strong> <%= ticket.status %>
+            <a
+              href="/ticket/<%= ticket.id %>"
+              class="btn btn-sm btn-outline-secondary mt-2"
+              >View Details</a
+            >
+          </li>
+          <% }); %>
+        </ul>
+        <% } else { %>
+        <p class="text-muted">No tickets in the queue.</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <% } else if (user.roleId === 1) { %>
+  <div class="admin-dashboard">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Admin Overview</h2>
+        <div class="row">
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title">Manage Users</h3>
+                <a href="/admin/users" class="btn btn-primary">View Users</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title">Manage Technicians</h3>
+                <a href="/admin/technicians" class="btn btn-secondary"
+                  >View Technicians</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title">View All Requests</h3>
+                <a href="/admin/requests" class="btn btn-secondary"
+                  >View All Requests</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% } else { %>
+  <div class="alert alert-danger" roleId="alert">
+    <p>Error: User roleId not recognized.</p>
+  </div>
+  <% } %>
+</section>

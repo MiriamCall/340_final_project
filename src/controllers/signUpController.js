@@ -36,7 +36,7 @@ export const handleSignUp = async (req, res) => {
   }
 
   try {
-    const roleId = 1; // Default role ID (client)
+    const roleId = 3; // Default role ID (client)
     const newUser = await createUser(username, password, email, roleId);
     req.session.userId = newUser.id;
     res.redirect("/dashboard");
