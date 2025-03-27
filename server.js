@@ -14,6 +14,8 @@ import authRoutes from "./src/routes/loginRoute.js"; // ✅ Importing login rout
 import dotenv from "dotenv";
 import session from "express-session";
 import cookieParser from "cookie-parser";
+import pgSession from "connect-pg-simple"; // Import for PostgreSQL session store
+import pg from "pg"; // Import pg for database connection
 
 /**
  * Global Variables
@@ -29,9 +31,15 @@ const port = process.env.PORT;
  */
 const app = express();
 
-// Set up user session management
+// Set up user session management with PostgreSQL session store
+const PostgresStore = pgSession(session);
 app.use(
   session({
+    store: new PostgresStore({
+      pool: new pg.Pool({ connectionString: process.env.DB_URL }), // Use your database connection string
+      tableName: "sessions",
+      createTableIfMissing: true,
+    }),
     secret: process.env.SESSION_SECRET, // Ensure SESSION_SECRET is set in .env
     resave: false,
     saveUninitialized: false,
@@ -64,6 +72,9 @@ app.use(fileUploads);
 
 // Primary route for home
 app.use("/", homeRoute);
+
+// Add login Routes.
+app.use("/login", authRoutes);
 
 /**
  * Start the server

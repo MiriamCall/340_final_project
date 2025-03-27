@@ -1,0 +1,21 @@
+nav.ejs
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="https://placehold.co/300x80/jpg" alt="Site Logo" />
+    </a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="/products">Products</a></li>
+    <li><a href="/products/add">Add Product</a></li>
+    <li><a href="/contact">Contact</a></li>
+
+    <% if (user) { %>
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/logout">Logout</a></li>
+    <% } else { %>
+    <li><a href="/signup">Sign Up</a></li>
+    <li><a href="/login">Login</a></li>
+    <% } %>
+  </ul>
+</nav>

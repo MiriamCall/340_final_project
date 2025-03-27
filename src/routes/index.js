@@ -1,6 +1,6 @@
 import { Router } from "express";
 import productRoute from "./productRoute.js";
-import signupRoute from "./signupRoute.js";
+import signUpRoute from "./signUpRoute.js";
 import loginRoute from "./loginRoute.js";
 import logoutRoute from "./logoutRoute.js";
 import dashboardRoute from "./dashboardRoute.js";
@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
 router.use("/products", productRoute);
 
 // signup Routes
-router.use("/signup", signupRoute);
+router.use("/signup", signUpRoute);
 
 // login Routes
 router.use("/login", loginRoute);

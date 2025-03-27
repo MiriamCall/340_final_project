@@ -1,22 +1,47 @@
-import pkg from "pg";
-const { Pool } = pkg;
+import dbClient from "./index.js";
+import bcrypt from "bcrypt";
 
-// Create a new PostgreSQL connection pool
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-});
+export const createUser = async (username, password, email, roleId = 1) => {
+  // Default roleId is set to 1 (client)
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const query = `
+    INSERT INTO users (username, password, email, role_id, created_at, updated_at)
+    VALUES ($1, $2, $3, $4, NOW(), NOW())
+    RETURNING id, username, email, role_id;
+  `;
+  const values = [username, hashedPassword, email, roleId];
 
-// Find a user by their email address
-export const findUserByEmail = async (email) => {
-  const result = await pool.query("SELECT * FROM users WHERE email = $1", [
-    email,
-  ]);
-  return result.rows[0]; // Return the user object or undefined if not found
+  try {
+    const result = await dbClient.query(query, values);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error creating user:", error);
+    throw error;
+  }
 };
 
-// Export the pool if needed elsewhere
-export { pool };
+export const findUserByUsername = async (username) => {
+  const query = "SELECT * FROM users WHERE username = $1;";
+  const values = [username];
+
+  try {
+    const result = await dbClient.query(query, values);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error finding user:", error);
+    throw error;
+  }
+};
+
+export const findUserByEmail = async (email) => {
+  const query = "SELECT * FROM users WHERE email = $1;";
+  const values = [email];
+
+  try {
+    const result = await dbClient.query(query, values);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error finding user by email:", error);
+    throw error;
+  }
+};
