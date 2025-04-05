@@ -5,6 +5,7 @@ import loginRoute from "./loginRoute.js";
 import logoutRoute from "./logoutRoute.js";
 import dashboardRoute from "./dashboardRoute.js";
 import serviceRequestRoute from "./serviceRequestRoute.js";
+import contactRoute from "./contactRoute.js";
 
 const router = Router();
 
@@ -35,6 +36,6 @@ router.use("/dashboard", dashboardRoute);
 router.use("/service-request", serviceRequestRoute);
 
 //contact route
-// router.use("/contact", contactRoute);
+router.use("/contact", contactRoute);
 
 export default router;
