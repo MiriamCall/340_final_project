@@ -34,4 +34,7 @@ router.use("/dashboard", dashboardRoute);
 // Service Request Routes
 router.use("/service-request", serviceRequestRoute);
 
+//contact route
+// router.use("/contact", contactRoute);
+
 export default router;
