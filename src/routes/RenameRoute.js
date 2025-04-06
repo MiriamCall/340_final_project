@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { renderDashboard } from "../controllers/dashboardController.js";
+import { renderDashboard } from "../controllers/renameController.js";
 import {
   isAuthenticated,
   authorizeAdmin,
