@@ -171,13 +171,12 @@
     <div class="dashboard__card">
       <div class="dashboard__card-body">
         <h2 class="dashboard__card-title">All Service Requests</h2>
-        <% if (allServiceRequests && allServiceRequests.length > 0) { %>
+        <% if (serviceRequests && serviceRequests.length > 0) { %>
         <ul class="service-request-list">
-          <% allServiceRequests.forEach(request => { %>
+          <% serviceRequests.forEach(request => { %>
           <li class="service-request-list__item">
             <strong>Request ID:</strong> <%= request.id %> <br />
             <strong>Client ID:</strong> <%= request.user_id %> <br />
-            <strong>Technician ID:</strong> <%= request.technician_id || 'N/A'
             %>
             <br />
             <strong>Product:</strong> <%= request.productName %> <br />
