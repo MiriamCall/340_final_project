@@ -1,0 +1,39 @@
+<h1>Contact Submissions</h1>
+
+<% if (contacts && contacts.length > 0) { %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Message</th>
+      <th>Submitted At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% contacts.forEach(contact => { %>
+    <tr>
+      <td><%= contact.first_name %></td>
+      <td><%= contact.last_name %></td>
+      <td><%= contact.email %></td>
+      <td><%= contact.message %></td>
+      <td><%= new Date(contact.created_at).toLocaleString() %></td>
+      <td>
+        <!-- Delete form with confirmation -->
+        <form
+          action="/contact/<%= contact.id %>"
+          method="POST"
+          onsubmit="return confirm('Are you sure you want to delete this product?');"
+        >
+          <button type="submit">Delete Contact</button>
+        </form>
+      </td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>
+<% } else { %>
+<p>No contact submissions found.</p>
+<% } %>

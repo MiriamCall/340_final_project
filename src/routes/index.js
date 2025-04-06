@@ -17,6 +17,14 @@ router.get("/", async (req, res) => {
   });
 });
 
+// Generic Thank You page (for all form submissions)
+router.get("/thank-you", (req, res) => {
+  res.render("thank-you", {
+    title: "Thank You",
+    user: req.session.userId ? { id: req.session.userId } : null,
+  });
+});
+
 // Product Page Route
 router.use("/products", productRoute);
 

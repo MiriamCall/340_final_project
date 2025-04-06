@@ -1,8 +1,29 @@
 // contactController.js
-import { getAllContacts, addNewContact } from "../models/contactModel.js";
+import {
+  getContactById,
+  getAllContacts,
+  addNewContact,
+  deleteContact,
+} from "../models/contactModel.js";
 
-const renderContactPage = async (req, res) => {
-  res.render("contact", {
+const renderContactsDashboard = async (req, res) => {
+  try {
+    const result = await getAllContacts();
+    const contacts = result.rows;
+
+    res.render("contactsDashboard", {
+      title: "View Contacts",
+      contacts,
+      user: req.session.userId ? { id: req.session.userId } : null,
+    });
+  } catch (error) {
+    console.error("Error fetching contacts:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+const renderAddContactPage = async (req, res) => {
+  res.render("addContact", {
     title: "Contact",
     errors: {},
     user: req.session.userId ? { id: req.session.userId } : null,
@@ -21,7 +42,7 @@ const addContactHandler = async (req, res) => {
     const result = await addNewContact(contactData);
 
     if (result.rows.length > 0) {
-      res.redirect(`/contact`);
+      res.redirect(`/thank-you`);
     } else {
       res.status(500).send("Error adding contact");
     }
@@ -40,11 +61,16 @@ const deleteContactHandler = async (req, res) => {
       return res.status(404).send("Contact not found");
     }
 
-    res.redirect("/contact");
+    res.redirect("/");
   } catch (error) {
     console.error("Error deleting contact:", error);
     res.status(500).send("Internal Server Error");
   }
 };
 
-export { renderContactPage, addContactHandler, deleteContactHandler };
+export {
+  renderContactsDashboard,
+  renderAddContactPage,
+  addContactHandler,
+  deleteContactHandler,
+};
