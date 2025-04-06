@@ -15,15 +15,10 @@ import {
 
 const router = Router();
 
-router.get("/", isAuthenticated, authorizeTechnician, getServiceRequests);
-router.get("/:id", isAuthenticated, authorizeTechnician, getServiceRequestById);
-router.post("/", isAuthenticated, authorizeTechnician, createServiceRequest);
-router.put("/:id", isAuthenticated, authorizeTechnician, updateServiceRequest);
-router.delete(
-  "/:id",
-  isAuthenticated,
-  authorizeTechnician,
-  deleteServiceRequest
-);
+router.get("/", isAuthenticated, getServiceRequests);
+router.get("/:id", isAuthenticated, getServiceRequestById);
+router.post("/", isAuthenticated, createServiceRequest);
+router.put("/:id", isAuthenticated, updateServiceRequest);
+router.delete("/:id", isAuthenticated, deleteServiceRequest);
 
 export default router;

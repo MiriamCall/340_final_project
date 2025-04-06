@@ -1,97 +1,111 @@
-<section class="dashboard-content">
-  <h1 class="text-center mb-4">Dashboard</h1>
+<section class="dashboard">
+  <h1 class="dashboard__title">Dashboard</h1>
+
   <% if (user.roleId === 3) { %>
   <div class="client-dashboard">
-    <div class="card mb-4">
-      <div class="card-body">
-        <h2 class="card-title">Create New Service Request</h2>
-
-        <form action="/service-request" method="POST">
-          <div class="mb-3">
-            <div class="product-selection">
-              <label class="product-selection-label">Select Product</label>
-              <div class="product-cards">
-                <% if (products && products.length > 0) { %> <%
-                products.forEach(product => { %>
-                <div class="product-card" data-product-id="<%= product.id %>">
-                  <img
-                    src="<%= product.image_url %>"
-                    alt="<%= product.product_name %>"
-                    class="product-image"
-                  />
-                  <div class="product-details">
-                    <p class="product-name"><%= product.product_name %></p>
-                    <p class="product-id">ID: <%= product.id %></p>
-                  </div>
-                </div>
-                <% }); %> <% } else { %>
-                <p class="product-no-available">No products available.</p>
-                <% } %>
-              </div>
-              <input
-                type="hidden"
-                name="product_id"
-                id="selectedProductId"
-                required
-              />
-            </div>
+    <div class="dashboard__card">
+      <div class="dashboard__card-body">
+        <h2 class="dashboard__card-title">Create New Service Request</h2>
+        <form
+          class="service-request-form"
+          action="/service-request"
+          method="POST"
+        >
+          <div class="form-group">
+            <label class="form-label" for="product_id">Select Product</label>
+            <select
+              class="form-select"
+              id="product_id"
+              name="product_id"
+              required
+            >
+              <option value="" disabled selected>-- Select a Product --</option>
+              <% if (products && products.length > 0) { %> <%
+              products.forEach(product => { %>
+              <option value="<%= product.id %>"><%= product.name %></option>
+              <% }); %> <% } else { %>
+              <option value="" disabled>No products available</option>
+              <% } %>
+            </select>
           </div>
 
-          <div class="mb-3">
-            <label class="form-label"
-              >Select Services (Check all that apply)</label
+          <div class="form-group">
+            <label class="form-label" for="description"
+              >Description of Issue</label
             >
+            <textarea
+              class="form-textarea"
+              id="description"
+              name="description"
+              rows="4"
+              required
+            ></textarea>
+          </div>
+
+          <input type="hidden" name="status_id" value="1" required />
+          <small class="form-text form-hint"
+            >Status will be set automatically.</small
+          >
+
+          <input type="hidden" name="technician_id" value="" />
+          <small class="form-text form-hint"
+            >Technician will be assigned later.</small
+          >
+
+          <div class="form-group">
+            <label class="form-label">
+              Select Services (Check all that apply)
+            </label>
             <% if (services && services.length > 0) { %> <%
             services.forEach(service => { %>
             <div class="form-check">
               <input
-                class="form-check-input"
+                class="form-check__input"
                 type="checkbox"
                 name="service_ids"
                 value="<%= service.id %>"
                 id="serviceCheckbox<%= service.id %>"
               />
               <label
-                class="form-check-label"
+                class="form-check__label"
                 for="serviceCheckbox<%= service.id %>"
                 ><%= service.service_name %></label
               >
             </div>
             <% }); %> <% } else { %>
-            <p class="text-muted">No services available.</p>
+            <p class="form-text form-muted">No services available.</p>
             <% } %>
           </div>
 
-          <button type="submit" class="btn btn-primary">Submit Request</button>
+          <button type="submit" class="button button--primary">
+            Submit Request
+          </button>
         </form>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-body">
-        <h2 class="card-title">Your Service Requests</h2>
+    <div class="dashboard__card">
+      <div class="dashboard__card-body">
+        <h2 class="dashboard__card-title">Your Service Requests</h2>
         <% if (serviceRequests && serviceRequests.length > 0) { %>
-        <ul class="list-group">
+        <ul class="service-request-list" style="list-style-type: none">
           <% serviceRequests.forEach(request => { %>
-          <li class="list-group-item">
+          <li class="service-request-list__item">
             <strong>Request ID:</strong> <%= request.id %> <br />
-            <strong>Product:</strong> <%= request.productName %> <br />
-            <strong>Services:</strong>
-            <% if (request.services && request.services.length > 0) { %> <%=
-            request.services.join(', ') %> <% } else { %> None <% } %>
-            <br />
-            <strong>Date:</strong> <%= request.date %> <br />
-            <strong>Status:</strong> <%= request.status %> <br />
+            <strong>Product:</strong> <%= request.product_id %> <br />
+            <strong>Description:</strong> <%= request.description %> <br />
+            <strong>Status:</strong> <%= request.status_id %> <br />
             <a
               href="/service-request/<%= request.id %>"
-              class="btn btn-sm btn-outline-secondary mt-2"
+              class="button button--secondary button--small"
+              style="display: none"
               >View Details</a
             >
           </li>
           <% }); %>
         </ul>
         <% } else { %>
-        <p class="text-muted">No service requests found.</p>
+        <p class="form-text form-muted">No service requests found.</p>
         <% } %>
       </div>
     </div>
@@ -99,60 +113,54 @@
 
   <% } else if (user.roleId === 2) { %>
   <div class="technician-dashboard">
-    <div class="card mb-4">
-      <div class="card-body">
-        <h2 class="card-title">Your Assigned Tasks</h2>
-        <% if (tasks && tasks.length > 0) { %>
-        <ul class="list-group">
-          <% tasks.forEach(task => { %>
-          <li class="list-group-item">
-            <strong>Task ID:</strong> <%= task.id %> <br />
-            <strong>Product:</strong> <%= task.productName %> <br />
+    <div class="dashboard__card">
+      <div class="dashboard__card-body">
+        <h2 class="dashboard__card-title">Service Requests Assigned to You</h2>
+        <% if (serviceRequests && serviceRequests.length > 0) { %>
+        <ul class="service-request-list">
+          <% serviceRequests.forEach(request => { %>
+          <li class="service-request-list__item">
+            <strong>Request ID:</strong> <%= request.id %> <br />
+            <strong>Client ID:</strong> <%= request.user_id %> <br />
+            <strong>Product:</strong> <%= request.productName %> <br />
             <strong>Services:</strong>
-            <% if (task.services && task.services.length > 0) { %> <%=
-            task.services.join(', ') %> <% } else { %> None <% } %>
+            <% if (request.services && request.services.length > 0) { %> <%=
+            request.services.join(', ') %> <% } else { %> None <% } %>
             <br />
-            <strong>Description:</strong> <%= task.description %> <br />
-            <strong>Status:</strong> <%= task.status %> <br />
-            <strong>Due Date:</strong> <%= task.dueDate %>
-            <a
-              href="/technician/task/<%= task.id %>"
-              class="btn btn-sm btn-outline-secondary mt-2"
-              >View Details</a
-            >
+            <strong>Description:</strong> <%= request.description %> <br />
+            <strong>Status:</strong> <%= request.status %> <br />
+            <div class="action-buttons">
+              <a
+                href="/service-request/<%= request.id %>"
+                class="button button--primary button--small"
+                >View Details</a
+              >
+              <a
+                href="/service-request/edit/<%= request.id %>"
+                class="button button--warning button--small"
+                >Edit</a
+              >
+              <form
+                action="/service-request/<%= request.id %>?_method=DELETE"
+                method="POST"
+                style="display: inline"
+                onsubmit="return confirm('Are you sure you want to delete this service request?');"
+              >
+                <button
+                  type="submit"
+                  class="button button--danger button--small"
+                >
+                  Delete
+                </button>
+              </form>
+            </div>
           </li>
           <% }); %>
         </ul>
         <% } else { %>
-        <p class="text-muted">No tasks assigned to you.</p>
-        <% } %>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <h2 class="card-title">Ticket Queue</h2>
-        <% if (tickets && tickets.length > 0) { %>
-        <ul class="list-group">
-          <% tickets.forEach(ticket => { %>
-          <li class="list-group-item">
-            <strong>Ticket ID:</strong> <%= ticket.id %> <br />
-            <strong>Subject:</strong> <%= ticket.subject %> <br />
-            <strong>Product:</strong> <%= ticket.productName %> <br />
-            <strong>Services:</strong>
-            <% if (ticket.services && ticket.services.length > 0) { %> <%=
-            ticket.services.join(', ') %> <% } else { %> None <% } %>
-            <br />
-            <strong>Status:</strong> <%= ticket.status %>
-            <a
-              href="/ticket/<%= ticket.id %>"
-              class="btn btn-sm btn-outline-secondary mt-2"
-              >View Details</a
-            >
-          </li>
-          <% }); %>
-        </ul>
-        <% } else { %>
-        <p class="text-muted">No tickets in the queue.</p>
+        <p class="form-text form-muted">
+          No service requests are currently assigned to you.
+        </p>
         <% } %>
       </div>
     </div>
@@ -160,45 +168,104 @@
 
   <% } else if (user.roleId === 1) { %>
   <div class="admin-dashboard">
-    <div class="card">
-      <div class="card-body">
-        <h2 class="card-title">Admin Overview</h2>
-        <div class="row">
-          <div class="col-md-6 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <h3 class="card-title">Manage Users</h3>
-                <a href="/admin/users" class="btn btn-primary">View Users</a>
-              </div>
+    <div class="dashboard__card">
+      <div class="dashboard__card-body">
+        <h2 class="dashboard__card-title">All Service Requests</h2>
+        <% if (allServiceRequests && allServiceRequests.length > 0) { %>
+        <ul class="service-request-list">
+          <% allServiceRequests.forEach(request => { %>
+          <li class="service-request-list__item">
+            <strong>Request ID:</strong> <%= request.id %> <br />
+            <strong>Client ID:</strong> <%= request.user_id %> <br />
+            <strong>Technician ID:</strong> <%= request.technician_id || 'N/A'
+            %>
+            <br />
+            <strong>Product:</strong> <%= request.productName %> <br />
+            <strong>Services:</strong>
+            <% if (request.services && request.services.length > 0) { %> <%=
+            request.services.join(', ') %> <% } else { %> None <% } %>
+            <br />
+            <strong>Description:</strong> <%= request.description %> <br />
+            <strong>Status:</strong> <%= request.status %> <br />
+            <div class="action-buttons">
+              <a
+                href="/service-request/<%= request.id %>"
+                class="button button--primary button--small"
+                >View Details</a
+              >
+              <a
+                href="/service-request/edit/<%= request.id %>"
+                class="button button--warning button--small"
+                >Edit</a
+              >
+              <form
+                action="/service-request/<%= request.id %>?_method=DELETE"
+                method="POST"
+                style="display: inline"
+                onsubmit="return confirm('Are you sure you want to delete this service request?');"
+              >
+                <button
+                  type="submit"
+                  class="button button--danger button--small"
+                >
+                  Delete
+                </button>
+              </form>
+            </div>
+          </li>
+          <% }); %>
+        </ul>
+        <% } else { %>
+        <p class="form-text form-muted">No service requests found.</p>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="admin-actions">
+      <h2 class="dashboard__card-title">Admin Actions</h2>
+      <div class="admin-actions__row">
+        <div class="admin-actions__col">
+          <div class="dashboard__card">
+            <div class="dashboard__card-body">
+              <h5 class="dashboard__card-subtitle">Manage Users</h5>
+              <p class="dashboard__card-text">View and manage all users.</p>
+              <a href="/admin/users" class="button button--info">View Users</a>
             </div>
           </div>
-          <div class="col-md-6 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <h3 class="card-title">Manage Technicians</h3>
-                <a href="/admin/technicians" class="btn btn-secondary"
-                  >View Technicians</a
-                >
-              </div>
+        </div>
+        <div class="admin-actions__col">
+          <div class="dashboard__card">
+            <div class="dashboard__card-body">
+              <h5 class="dashboard__card-subtitle">Manage Products</h5>
+              <p class="dashboard__card-text">
+                Add, edit, and delete products.
+              </p>
+              <a href="/products" class="button button--info"
+                >Manage Products</a
+              >
             </div>
           </div>
-          <div class="col-md-6 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <h3 class="card-title">View All Requests</h3>
-                <a href="/admin/requests" class="btn btn-secondary"
-                  >View All Requests</a
-                >
-              </div>
+        </div>
+        <div class="admin-actions__col">
+          <div class="dashboard__card">
+            <div class="dashboard__card-body">
+              <h5 class="dashboard__card-subtitle">View Contact Submissions</h5>
+              <p class="dashboard__card-text">
+                See and manage contact form submissions.
+              </p>
+              <a href="/contact/dashboard" class="button button--secondary"
+                >View Contacts</a
+              >
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
   <% } else { %>
-  <div class="alert alert-danger" roleId="alert">
-    <p>Error: User roleId not recognized.</p>
+  <div class="alert alert--danger" role="alert">
+    <p>Error: User role not recognized.</p>
   </div>
   <% } %>
 </section>
@@ -208,15 +275,6 @@
     const productCards = document.querySelectorAll(".product-card");
     const selectedProductIdInput = document.getElementById("selectedProductId");
 
-    productCards.forEach((card) => {
-      card.addEventListener("click", function () {
-        const productId = this.dataset.productId;
-        selectedProductIdInput.value = productId;
-
-        // Optional: Add visual feedback (e.g., highlight the selected card)
-        productCards.forEach((c) => c.classList.remove("selected"));
-        this.classList.add("selected");
-      });
-    });
+    // The product card selection logic is no longer needed with the dropdown
   });
 </script>

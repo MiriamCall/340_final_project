@@ -18,7 +18,7 @@
         </p>
 
         <a href="/products" class="back-button">Back to Products</a>
-
+        <% if (user && user.role_id === 1) { %>
         <p>
           Added on: <%= new Date(product.created_at).toLocaleDateString() %>
         </p>
@@ -41,6 +41,7 @@
             <button type="submit">Delete Product</button>
           </form>
         </div>
+        <% } %>
       </div>
     </div>
   </section>
