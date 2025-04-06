@@ -6,6 +6,7 @@ import logoutRoute from "./logoutRoute.js";
 import dashboardRoute from "./dashboardRoute.js";
 import serviceRequestRoute from "./serviceRequestRoute.js";
 import contactRoute from "./contactRoute.js";
+import { isAuthenticated } from "../middleware/authMiddleware.js";
 
 const router = Router();
 
@@ -18,7 +19,7 @@ router.get("/", async (req, res) => {
 });
 
 // Generic Thank You page (for all form submissions)
-router.get("/thank-you", (req, res) => {
+router.get("/thank-you", isAuthenticated, (req, res) => {
   res.render("thank-you", {
     title: "Thank You",
     user: req.session.userId ? { id: req.session.userId } : null,
@@ -35,13 +36,13 @@ router.use("/signup", signUpRoute);
 router.use("/login", loginRoute);
 
 // Logout Routes
-router.use("/logout", logoutRoute);
+router.use("/logout", isAuthenticated, logoutRoute);
 
 // Dashboard Routes
-router.use("/dashboard", dashboardRoute);
+router.use("/dashboard", isAuthenticated, dashboardRoute);
 
 // Service Request Routes
-router.use("/service-request", serviceRequestRoute);
+router.use("/service-request", isAuthenticated, serviceRequestRoute);
 
 //contact route
 router.use("/contact", contactRoute);
