@@ -5,7 +5,7 @@ import {
 } from "../models/userModel.js";
 
 export const renderSignUpPage = (req, res) => {
-  res.render("signup", {
+  res.render("signUp", {
     title: "Sign Up",
     errors: {},
     user: req.session.userId ? { id: req.session.userId } : null,
@@ -28,7 +28,7 @@ export const handleSignUp = async (req, res) => {
   if (existingEmail) errors.email = "Email already exists";
 
   if (Object.keys(errors).length > 0) {
-    return res.render("signup", {
+    return res.render("signUp", {
       title: "Sign Up",
       errors,
       user: req.session.userId ? { id: req.session.userId } : null,
