@@ -1,28 +1,119 @@
-<h1>Welcome to My Website</h1>
-<p>This is the home page, dynamically rendered using the layout.</p>
-
-<h1>Contact Fancy Dress Boutique</h1>
-<p>
-  We'd love to hear from you! Whether you have questions, feedback, or just want
-  to chat about dresses, reach out to us.
-</p>
-
-<section class="contact-box">
-  <h2>Our Details</h2>
-  <ul>
-    <li><strong>Phone:</strong> (123) 456-7890</li>
-    <li><strong>Email:</strong> info@fancydressboutique.com</li>
-  </ul>
+<section class="hero">
+  <div class="hero__content">
+    <h1 class="hero__title">Find Your Perfect Dress for Every Occasion</h1>
+    <p class="hero__subtitle">
+      Discover a curated collection of elegant and stylish dresses that will
+      make you feel beautiful and confident.
+    </p>
+    <a href="/shop" class="button button--primary hero__button"
+      >Browse Our Collection</a
+    >
+  </div>
+  <div class="hero__image">
+    <img src="/images/hero-dress.jpg" alt="Elegant Dress" loading="lazy" />
+  </div>
 </section>
 
-<section>
-  <h2>About the Owners</h2>
-  <p>
-    Fancy Dress Boutique was founded by Emma Johnson and Olivia White, two
-    fashion enthusiasts with a passion for helping others find the perfect dress
-    for every occasion. After working in the fashion industry for over 10 years,
-    they decided to open a shop that blends style, comfort, and elegance. Their
-    goal is to provide high-quality dresses that make every customer feel
-    beautiful and confident.
+<section class="featured-categories">
+  <h2 class="section-title">Explore Our Featured Collections</h2>
+  <div class="categories__grid">
+    <div class="category-card">
+      <img
+        src="/images/category-evening.jpg"
+        alt="Evening Dresses"
+        loading="lazy"
+      />
+      <h3 class="category-card__title">Evening Elegance</h3>
+      <p class="category-card__description">
+        Sophisticated gowns for unforgettable nights.
+      </p>
+      <a
+        href="/shop?category=evening"
+        class="button button--secondary button--small"
+        >Shop Now</a
+      >
+    </div>
+    <div class="category-card">
+      <img
+        src="/images/category-cocktail.jpg"
+        alt="Cocktail Dresses"
+        loading="lazy"
+      />
+      <h3 class="category-card__title">Cocktail Chic</h3>
+      <p class="category-card__description">
+        Stylish and fun dresses for any social gathering.
+      </p>
+      <a
+        href="/shop?category=cocktail"
+        class="button button--secondary button--small"
+        >Shop Now</a
+      >
+    </div>
+    <div class="category-card">
+      <img
+        src="/images/category-casual.jpg"
+        alt="Casual Dresses"
+        loading="lazy"
+      />
+      <h3 class="category-card__title">Daytime Delight</h3>
+      <p class="category-card__description">
+        Comfortable and fashionable dresses for everyday wear.
+      </p>
+      <a
+        href="/shop?category=casual"
+        class="button button--secondary button--small"
+        >Shop Now</a
+      >
+    </div>
+  </div>
+</section>
+
+<section class="about-us">
+  <div class="about-us__content">
+    <h2 class="section-title">About Fancy Dress Boutique</h2>
+    <p>
+      Founded by fashion enthusiasts Emma Johnson and Olivia White, Fancy Dress
+      Boutique is born from a shared passion for empowering individuals through
+      the perfect dress. With over a decade of experience in the fashion
+      industry, Emma and Olivia envisioned a boutique that blends exquisite
+      style, unparalleled comfort, and timeless elegance.
+    </p>
+    <p>
+      Our goal is simple: to provide a curated collection of high-quality
+      dresses that not only look stunning but also make every customer feel
+      beautiful, confident, and ready to conquer any occasion. We believe that
+      the right dress can transform how you feel, and we're here to help you
+      discover those transformative pieces.
+    </p>
+    <a href="/about" class="button button--tertiary">Learn More About Us</a>
+  </div>
+  <div class="about-us__image">
+    <img src="/images/about-us.jpg" alt="Emma and Olivia" loading="lazy" />
+  </div>
+</section>
+
+<section class="contact-us">
+  <h2 class="section-title">Contact Us</h2>
+  <p class="contact-us__intro">
+    We'd love to hear from you! Whether you have questions about our collection,
+    need styling advice, or just want to share your fancy dress stories, please
+    don't hesitate to reach out.
   </p>
+  <div class="contact-details">
+    <div class="contact-info">
+      <h3>Our Details</h3>
+      <ul>
+        <li>
+          <strong>Phone:</strong>
+          <a href="tel:(123) 456-7890">(123) 456-7890</a>
+        </li>
+        <li>
+          <strong>Email:</strong>
+          <a href="mailto:info@fancydressboutique.com"
+            >info@fancydressboutique.com</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
 </section>
